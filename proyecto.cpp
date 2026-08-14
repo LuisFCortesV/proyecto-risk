@@ -34,6 +34,9 @@ int main(){
     // Mensaje por consola
     string respuesta;
 
+    cout << "[INFO] Escriba 'ayuda' para ver la lista de comandos disponibles." << endl;
+    cout << "[INFO] Escriba 'ayuda <comando>' para ver como se usa un comando especifico." << endl;
+
     do{
 
     
@@ -46,8 +49,56 @@ int main(){
     stringstream ss(respuesta);
     string token;
 
-    while(getline(ss, token, ' ')){
+    while(ss >> token){
         respuesta_dividida.push_back(token);
+    }
+
+    if(!respuesta_dividida.empty() && respuesta_dividida[0] == "salir"){
+        break;
+    }
+
+    if(respuesta_dividida.empty()){
+        cout << "[ERROR] Debe ingresar un comando" << endl;
+        continue;
+    }
+
+    // Comando de ayuda donde se listan todos los comandos
+
+    if(respuesta_dividida[0] == "ayuda" && respuesta_dividida.size() == 1){
+        cout << "[INFO] Comandos disponibles:" << endl;
+        for(int i = 0; i < lista_comandos.size(); i++){
+            cout << " - " << lista_comandos[i].nombre_comando << " (" << lista_comandos[i].cantidad_parametros << " parametro(s))" << endl;
+        }
+        continue;
+    }
+
+    // Para mostrar como se usa un comando especifico
+
+     if(respuesta_dividida[0] == "ayuda" && respuesta_dividida.size() == 2){
+        bool encontrado = false;
+        for(int i = 0; i < lista_comandos.size(); i++){
+            if(lista_comandos[i].nombre_comando == respuesta_dividida[1]){
+                cout << "[INFO] Comando: " << lista_comandos[i].nombre_comando << endl;
+                cout << "[INFO] Parametros: ";
+                if(lista_comandos[i].cantidad_parametros == 0){
+                    cout << "no requiere parametros";
+                }else{
+                    for(int k = 0; k < lista_comandos[i].parametros.size(); k++){
+                        cout << lista_comandos[i].parametros[k];
+                        if(k < lista_comandos[i].parametros.size() - 1){
+                            cout << ", ";
+                        }
+                    }
+                }
+                cout << endl;
+                encontrado = true;
+                break;
+            }
+        }
+        if(!encontrado){
+            cout << "[ERROR] El comando no fue encontrado" << endl;
+        }
+        continue;
     }
 
     // recorrer vector de comandos hasta encontrar respuesta
@@ -72,12 +123,12 @@ int main(){
 
     if(comando_c){
         if(comando_parametros && comando_c){
-            cout << "Comando correcto con parametros correctos" << endl;
+            cout << "[EXITO] Comando correcto con parametros correctos" << endl;
         }else{
-            cout << "El comando fue encontrado pero los parametros eran incorrectos" << endl;
+            cout << "[ERROR] El comando fue encontrado pero los parametros eran incorrectos" << endl;
         }
     }else{
-        cout << "El comando no fue encontrado" << endl;
+        cout << "[ERROR] El comando no fue encontrado" << endl;
     }
 
 
