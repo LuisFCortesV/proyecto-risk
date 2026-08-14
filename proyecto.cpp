@@ -28,8 +28,9 @@ int main(){
 
     Comandos c9 = {"costo_conquista", 2, {"nombre_jugador","territorio"}};
     Comandos c10 = {"conquista_mas_barata", 1, {"nombre_jugador"}};
+    Comandos ex = {"salir",0,{""}};
 
-    vector<Comandos> lista_comandos = {c1,c2,c3,c4,c5,c6,c7,c8,c9,c10};
+    vector<Comandos> lista_comandos = {c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,ex};
 
     // Mensaje por consola
     string respuesta;
@@ -107,16 +108,14 @@ int main(){
     bool comando_c = false;
 
     for(int i = 0; i < lista_comandos.size(); i++){
-        for(int j = 0; j < respuesta_dividida.size(); j++){
-            if(lista_comandos[i].nombre_comando == respuesta_dividida[0]){
-                comando_c = true;
-                if(respuesta_dividida.size() - 1 == lista_comandos[i].cantidad_parametros){
-                    comando_parametros = true;
-                    break; 
-                }
-                else{
+        if(lista_comandos[i].nombre_comando == respuesta_dividida[0]){
+            comando_c = true;
+            if(respuesta_dividida.size() - 1 == lista_comandos[i].cantidad_parametros){
+                comando_parametros = true;
+                break; 
+            }
+            else{
                     comando_parametros = false;
-                }
             }
         }
     }
