@@ -10,25 +10,26 @@ struct Comandos{
     string nombre_comando;
     int cantidad_parametros;
     vector<string> parametros;
+    string descripcion;
 };
 
 int main(){
 
     // struct de los comandos
 
-    Comandos c1 = {"inicializar", 1, {"archivo_texto"}};
-    Comandos c2 = {"obtener_unidades", 1, {"nombre_jugador"}};
-    Comandos c3 = {"atacar", 1, {"nombre_jugador"}};
-    Comandos c4 = {"fortificar", 1, {"nombre_jugador"}};
-    Comandos c5 = {"estado_juego", 0, {"no requiere parametros adicionales"}};
+    Comandos c1 = {"inicializar", 1, {"archivo_texto"},"Inicializa el juego a partir de la información contenida en el archivo archivo_inicio.txt "};
+    Comandos c2 = {"obtener_unidades", 1, {"nombre_jugador"},"Realiza las operaciones descritas dentro del turno del jugador nombre_jugador correspondientes a la obtención de nuevas unidades"};
+    Comandos c3 = {"atacar", 1, {"nombre_jugador"}," Realiza las operaciones descritas dentro del turno del jugador nombre_jugador correspondientes al ataque"};
+    Comandos c4 = {"fortificar", 1, {"nombre_jugador"}, "Realiza las operaciones descritas dentro del turno del jugador nombre_jugador correspondientes a la fortificacion"};
+    Comandos c5 = {"estado_juego", 0, {"no requiere parametros adicionales"}, "Presenta en pantalla un resumen de la situación actual del juego, en la que se debe indicar:número de jugadores, nombres y colores de cada uno, jugador con el turno actual, y lista de los territorios con el color del jugador que lo controla y la cantidad de unidades que hay ubicadas en cada uno."};
 
-    Comandos c6 = {"guardar", 1, {"nombre_archivo"}};
-    Comandos c7 = {"guardar_comprimido", 1, {"nombre_archivo"}};
-    Comandos c8 = {"inicializar", 1, {"archivo_inicio"}};
+    Comandos c6 = {"guardar", 1, {"nombre_archivo"},"El estado actual del juego es guardado en un archivo de texto, con el mismo formato del archivo usado para la inicialización del juego."};
+    Comandos c7 = {"guardar_comprimido", 1, {"nombre_archivo"},"El estado actual del juego es guardado en un archivo binario (con extensión .bin) con la información"};
+    Comandos c8 = {"inicializar", 1, {"archivo_inicio"},"Inicializa el juego con los datos contenidos en el archivo identificado por archivo_inicio . El archivo debería contener la información descrita en el comando guardar."};
 
-    Comandos c9 = {"costo_conquista", 2, {"nombre_jugador","territorio"}};
-    Comandos c10 = {"conquista_mas_barata", 1, {"nombre_jugador"}};
-    Comandos ex = {"salir",0,{""}};
+    Comandos c9 = {"costo_conquista", 2, {"nombre_jugador","territorio"},"El programa debe calcular el costo y la secuencia de territorios a ser conquistados para lograr controlar el territorio dado por el usuario. El territorio desde donde debe atacar debe ser aquel que el jugador tenga controlado más cerca al dado por el jugador."};
+    Comandos c10 = {"conquista_mas_barata", 1, {"nombre_jugador"}," De todos los territorios posibles, calcular aquel que pueda implicar un menor número de unidades de ejército perdidas."};
+    Comandos ex = {"salir",0,{""},"Termina la ejecución de la aplicación"};
 
     vector<Comandos> lista_comandos = {c1,c2,c3,c4,c5,c6,c7,c8,c9,c10,ex};
 
@@ -91,6 +92,9 @@ int main(){
                         }
                     }
                 }
+                cout << endl;
+                cout << "[INFO] Descripcion: ";
+                cout << lista_comandos[i].descripcion << endl;
                 cout << endl;
                 encontrado = true;
                 break;
